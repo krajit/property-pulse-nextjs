@@ -1,4 +1,6 @@
 import "@/assets/styles/globals.css";
+import Footer from "@/components/Footer";
+import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 
 export const metadata = {
@@ -13,6 +15,7 @@ const MainLayout = ({ children }) => {
       <body>
         <Navbar />
         <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
