@@ -1,5 +1,24 @@
-const InfoBoxes = () => {
-  return <div>InfoBox</div>;
+import Link from "next/link";
+
+const InfoBox = ({
+  heading,
+  backgroundColor = "bg-gray-100",
+  textColor = "text-gray-800",
+  children,
+  buttonInfo,
+}) => {
+  return (
+    <div className={`${backgroundColor} p-6 rounded-lg shadow-md`}>
+      <h2 className={`${textColor} text-2xl font-bold`}>{heading}</h2>
+      <p className={`${textColor} mt-2 mb-4`}>{children}</p>
+      <Link
+        className={`${buttonInfo.backgroundColor} inline-block text-white rounded-lg px-4 py-2 hover:bg-gray-700`}
+        href={buttonInfo.link}
+      >
+        {buttonInfo.text}
+      </Link>
+    </div>
+  );
 };
 
-export default InfoBoxes;
+export default InfoBox;
