@@ -1,29 +1,42 @@
-"use client";
+import connectDB from "@/config/database";
+import Property from "@/models/Property";
+import Link from "next/link";
 
-import {
-  useRouter,
-  useParams,
-  useSearchParams,
-  usePathname,
-} from "next/navigation";
+import { FaArrowLeft } from "react-icons/fa";
 
-const PropertyPage = () => {
-  const router = useRouter();
-  const params = useParams();
-  const searchParams = useSearchParams();
-  const pathName = usePathname();
+import PropertyHeaderImage from "@/components/PropertyHeaderImage";
+
+const PropertyPage = async ({ params }) => {
+  const resolvedParams = await params; // this line needed to be added. Not in the tutorial
+  await connectDB();
+  const property = await Property.findById(resolvedParams.id).lean();
+
+  //  console.log(property);
 
   return (
-    <div>
-      <p>Property {params.id}</p>
-      <button onClick={() => router.replace("/")}>Go Home</button>
-      <p>
-        Name: {searchParams.get("name")} {searchParams.get("lname")}
-      </p>
-      {/* usage http://localhost:3000/properties/100?name=ajit */}
+    <>
+      <PropertyHeaderImage image={property.images[0]} />
 
-      <p>{pathName}</p>
-    </div>
+      <section>
+        <div className="container m-auto py-6 px-6">
+          <Link
+            href="/properties"
+            className="text-blue-500 hover:text-blue-600 flex items-center"
+          >
+            <FaArrowLeft className="mr-2" /> Back to Properties
+          </Link>
+        </div>
+      </section>
+
+      <section className="bg-blue-50">
+        <div className="container m-auto py-10 px-6">
+          <div className="grid grid-cols-1 md:grid-cols-70/30 w-full gap-6">
+            {/* prop info */}
+            content
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 
